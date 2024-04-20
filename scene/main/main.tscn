@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://1lguj2cqhyb1"]
+
+[ext_resource type="Texture2D" uid="uid://dxj34bfdbic0l" path="res://assets/sprites/campo-roxo.png" id="1_oamc7"]
+[ext_resource type="Texture2D" uid="uid://do4sdkmr8tkfa" path="res://assets/sprites/jogador.png" id="2_r3dru"]
+[ext_resource type="PackedScene" uid="uid://de7i4pm0qjncr" path="res://scene/player/player.tscn" id="3_v4eph"]
+[ext_resource type="PackedScene" uid="uid://e3xhdh40c01u" path="res://scene/ball/ball.tscn" id="3_xbn0v"]
+[ext_resource type="PackedScene" uid="uid://d08eog1jhrphl" path="res://scene/gol/gol.tscn" id="5_04tlg"]
+[ext_resource type="PackedScene" uid="uid://cteljxyfdqscc" path="res://scene/game_manager/game_manager.tscn" id="6_srtm6"]
+[ext_resource type="FontFile" uid="uid://ccv1yr534xex3" path="res://assets/fonts/font.ttf" id="7_kgas1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_v1pcb"]
+font = ExtResource("7_kgas1")
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_ahd7q"]
+font = ExtResource("7_kgas1")
+font_size = 50
+
+[node name="Main" type="Node2D"]
+
+[node name="field" type="Sprite2D" parent="."]
+position = Vector2(639.25, 360)
+scale = Vector2(1.00117, 1)
+texture = ExtResource("1_oamc7")
+
+[node name="fieldDivider" type="Sprite2D" parent="."]
+position = Vector2(640, 360)
+scale = Vector2(0.5, 5.55)
+texture = ExtResource("2_r3dru")
+
+[node name="ball" parent="." instance=ExtResource("3_xbn0v")]
+position = Vector2(-58, 20)
+scale = Vector2(1.00235, 1)
+
+[node name="player1" parent="." instance=ExtResource("3_v4eph")]
+position = Vector2(63.9999, 360)
+scale = Vector2(1.00117, 1)
+is_player_one = true
+
+[node name="player2" parent="." instance=ExtResource("3_v4eph")]
+position = Vector2(1215, 346)
+scale = Vector2(1.00235, 1)
+
+[node name="gol_p1" parent="." groups=["gols"] instance=ExtResource("5_04tlg")]
+position = Vector2(-11, -1)
+scale = Vector2(1.00235, 1)
+
+[node name="gol_p2" parent="." groups=["gols"] instance=ExtResource("5_04tlg")]
+position = Vector2(1289, -2)
+scale = Vector2(1.00471, 1)
+
+[node name="GameManager" parent="." instance=ExtResource("6_srtm6")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="ScorePanerl" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="p1_score" type="Label" parent="UI/ScorePanerl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 8.0
+offset_right = -78.0
+offset_bottom = 58.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_v1pcb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="p2_score" type="Label" parent="UI/ScorePanerl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 88.0
+offset_top = 8.0
+offset_right = 138.0
+offset_bottom = 58.0
+grow_horizontal = 2
+text = "0"
+label_settings = SubResource("LabelSettings_ahd7q")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="gol_p1" to="GameManager" method="_on_gol_p_1_area_entered"]
+[connection signal="area_entered" from="gol_p2" to="GameManager" method="_on_gol_p_2_area_entered"]

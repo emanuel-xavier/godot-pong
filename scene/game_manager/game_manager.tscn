@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cteljxyfdqscc"]
+
+[ext_resource type="Script" path="res://scene/game_manager/game_manager.gd" id="1_jqn4w"]
+[ext_resource type="AudioStream" uid="uid://bmgyhfch25r4q" path="res://assets/sounds/goal-impact.wav" id="2_jq2q0"]
+
+[node name="GameManager" type="Node2D"]
+script = ExtResource("1_jqn4w")
+
+[node name="golSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_jq2q0")
